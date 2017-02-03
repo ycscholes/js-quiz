@@ -25,13 +25,13 @@
   - **Q**: How to destucturing a object?
     ```javascript
     let {firstName, lastName} = {firstName: 'Paul', lastName: 'Yu'};
-    
+
     // good
     function getFullName(user) {
         const { firstName, lastName } = user;
         return `${firstName} ${lastName}`;
     }
-    
+
     // best
     function getFullName({ firstName, lastName }) {
         return `${firstName} ${lastName}`;
@@ -57,6 +57,74 @@
         var superPower = function() {
             console.log('Flying');
         }
+    }
+    ```
+
+  - **Q**: How to prevent multiple click (multiple function excution)?
+
+    **A**: Use debounce && throttle (Could be found in lodash).
+    ```javascript
+    function debounce(fn, delay) {
+        let timer = null;
+
+        return function() {
+            let context = this;
+            let args = arguments;
+
+            timer && clearTimeout(timer);
+            timer = setTimeout(function() {
+                fn.apply(context, args);
+            }, delay);
+        }
+    }
+    ```
+**[⬆ back to top](#table-of-contents)**
+
+## Events
+  - **Q**: How to add large mount of event listeners?
+
+    **A**: Add listener to their container or use jQuery 'on'
+    ```javascript
+    let app = document.getElementById('todo-app');
+
+    document.getElementByTagName('ul').addEventListener('click', function(e) {
+        if (e.target && e.target.nodeName === 'LI') {
+          let item = e.target;
+          alert('you clicked on item: ' + item.innerHTML);
+        }
+    });
+    or
+    $('ul').on('click', 'li', function() {});
+    ```
+**[⬆ back to top](#table-of-contents)**
+
+## Closure
+  - **Q**: Verify the code below?
+    ```javascript
+    const arr = [10, 12, 15, 21];
+    for (var i = 0; i < arr.length; i++) {
+        setTimeout(function() {
+            console.log('The index of this number is: ' + i);
+        }, 3000);
+    }
+    ```
+    **A**:
+    ```javascript
+    const arr = [10, 12, 15, 21];
+    for (var i = 0; i < arr.length; i++) {
+        setTimeout(function(i_local) {
+            return function() {
+                console.log('The index of this number is: ' + i_local);
+            }
+        }(i), 3000);
+    }
+    or
+    const arr = [10, 12, 15, 21];
+    for (let i = 0; i < arr.length; i++) {
+        // 'let' will create a new scope
+        setTimeout(function() {
+            console.log('The index of this number is: ' + i);
+        }, 3000);
     }
     ```
 **[⬆ back to top](#table-of-contents)**
