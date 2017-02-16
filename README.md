@@ -4,9 +4,12 @@
 
 ## Array
   - **Q**: How to copy an array?
+
+    **A**:
     ```javascript
     const items = [1,2,3];
     const itemsCopy = [...items];
+    const itemsCopy1 = items.slice();
     ```
 
   - **Q**: How to convert an array-like object to an array? (e.g. arguments in function)
@@ -96,6 +99,10 @@
     or
     $('ul').on('click', 'li', function() {});
     ```
+  - **Q**: Difference between e.target and e.currentTarget?
+
+    **A**: e.target trigger the event, e.currentTarget register the event
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Closure
